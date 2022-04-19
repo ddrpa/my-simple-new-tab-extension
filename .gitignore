@@ -1,0 +1,10 @@
+.DS_Store
+.vscode
+
+host/*.build
+host/dist
+
+*.crx
+*.pem
+*.spec
+__*

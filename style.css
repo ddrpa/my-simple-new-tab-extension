@@ -1,0 +1,39 @@
+* {
+    margin: auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+
+    /* fallback */
+    background-image: url("fallback_background.jpeg");
+}
+
+footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+footer a {
+    font-size: 1rem;
+    line-height: 3rem;
+    text-decoration: none;
+    color: transparent;
+    display: block;
+    margin-left: 2rem;
+}
+
+footer:hover {
+    background-color: #8d8d8d6b;
+}
+
+footer:hover a {
+    color: #fff;
+}
