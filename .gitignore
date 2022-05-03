@@ -1,9 +1,11 @@
 .DS_Store
 .vscode
+.idea
 
-host/*.build
-host/dist
+node_modules
+dist
 
+*.iml
 *.crx
 *.pem
 *.spec

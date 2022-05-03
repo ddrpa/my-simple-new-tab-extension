@@ -1,0 +1,14 @@
+{
+  "name": "my-simple-new-tab-extension",
+  "version": "2.0.0",
+  "main": "index.js",
+  "author": "yufan <yufan@live.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "pug": "^3.0.2"
+  }
+}

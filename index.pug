@@ -1,0 +1,24 @@
+doctype html
+html(lang="zh")
+    head
+        meta(charset="utf-8")
+        meta(
+            name="viewport"
+            content="width=device-width, initial-scale=1.0")
+        title Hello World
+        link(rel="stylesheet", href="style.css")
+
+    body
+        div.wrapper
+            div.component
+                div(id="favourites")
+                    h1 favourites
+                    div.container
+                        each site in sites
+                            div.item-card(data-url=site.url)
+                                div.thumbnail(style=site.style)
+                                p.description #{site.description}
+                                p.website #{site.url}
+        footer
+            a(href="https://www.bing.com/search?q=%E5%8F%B2%E8%AF%BA%E5%A4%9A%E5%B0%BC%E4%BA%9A%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%9B%AD&form=hpcapt&mkt=zh-cn") 史诺多尼亚国家公园的Capel Curig，英国威尔士 (© Sebastian Wasek/Sime/eStock Photo)
+        script(src="content.js")

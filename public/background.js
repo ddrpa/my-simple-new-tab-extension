@@ -23,7 +23,7 @@ function initializeLocalStorage() {
             // It's generally not possible to store other types, such as Function, Date, RegExp, Set, Map, ArrayBuffer,
             // and so on. Some of these unsupported types will restore as an empty object, and some cause set() to
             // throw an error.The exact behavior here is browser-specific.
-            lastUpdateDate: new Date(1970, 01, 01).toDateString(),
+            lastUpdateDate: new Date(1970, 0, 1).toDateString(),
         }
     });
 }
