@@ -29,6 +29,9 @@ const locals = {
     })),
 }
 
+if (!fs.existsSync('dist')) {
+    fs.mkdirSync('dist');
+}
 // copy /public/* to /dist
 execSync(`cp -rf ${path.resolve('public', '*')} ${path.resolve('dist')}`);
 
