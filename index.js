@@ -12,10 +12,6 @@ const sites = [{
     url: 'https://www.infoq.cn/',
     backgroundImage: 'infoq.webp',
 }, {
-    name: 'Thoughtworks 洞见',
-    url: 'https://insights.thoughtworks.cn/',
-    backgroundImage: 'thoughtworks.png',
-}, {
     name: 'Solidot',
     url: 'https://www.solidot.org/',
     backgroundImage: 'solidot.jpeg',
