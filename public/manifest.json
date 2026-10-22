@@ -8,14 +8,30 @@
         "48": "icons/icon48.png",
         "128": "icons/icon128.png"
     },
+    "action": {
+        "default_title": "书签设置",
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
     "background": {
         "service_worker": "background.js"
     },
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "my-simple-new-tab@yufan.local",
+            "strict_min_version": "128.0"
+        }
+    },
     "host_permissions": [
-        "https://*.bing.com/*"
+        "http://*/*",
+        "https://*/*"
     ],
     "permissions": [
         "tabs",

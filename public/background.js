@@ -1,12 +1,14 @@
+const ext = globalThis.browser ?? globalThis.chrome;
+
 // optionalConverter should be a function that takes oldValue and changes to gets a newValue.
 // otherwise, storage will be updated by Object.assign({}, oldValue, changes).
 async function updateBrowserStorage(namespace, changes, optionalConverter) {
-    const result = await chrome.storage.local.get(namespace);
+    const result = await ext.storage.local.get(namespace);
     const oldValue = result[namespace] ?? {};
     const newValue = optionalConverter === undefined
         ? Object.assign({}, oldValue, changes)
         : optionalConverter(oldValue, changes);
-    return chrome.storage.local.set({ [namespace]: newValue });
+    return ext.storage.local.set({ [namespace]: newValue });
 }
 
 function defaultBackground() {
@@ -27,11 +29,11 @@ let storageReady = Promise.resolve();
 
 function initializeLocalStorage() {
     storageReady = storageReady.then(async () => {
-        const stored = await chrome.storage.local.get('background');
+        const stored = await ext.storage.local.get('background');
         if (stored.background) {
             return;
         }
-        await chrome.storage.local.set({ background: defaultBackground() });
+        await ext.storage.local.set({ background: defaultBackground() });
     }).catch((error) => {
         console.error(error);
     });
@@ -55,11 +57,11 @@ function updateBackgroundImage() {
     );
 }
 
-chrome.runtime.onInstalled.addListener(() => {
+ext.runtime.onInstalled.addListener(() => {
     initializeLocalStorage();
 });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+ext.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.module === 'background') {
         if (request.action === 'update') {
             storageReady.then(() => updateBackgroundImage()).catch(console.error);
