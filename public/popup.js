@@ -9,7 +9,7 @@ function setMessage(text, isError) {
 
 async function fillEditor() {
     const favourites = await loadFavourites();
-    urls.value = favourites.map((item) => item.url).join('\n');
+    urls.value = favourites.map(formatFavourite).join('\n');
 }
 
 save.addEventListener('click', async () => {
@@ -21,7 +21,7 @@ save.addEventListener('click', async () => {
         return;
     }
     if (result.lines) {
-        setMessage(`第 ${result.lines.join('、')} 行不是有效的 http 或 https 地址`, true);
+        setMessage(`第 ${result.lines.join('、')} 行不是有效的网址或 Markdown 链接`, true);
         return;
     }
     setMessage(`保存失败：${result.message}`, true);

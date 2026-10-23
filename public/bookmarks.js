@@ -3,6 +3,21 @@ const ext = globalThis.browser ?? globalThis.chrome;
 const FAVOURITES_KEY = 'favourites';
 const ICON_CACHE_KEY = 'favouriteIcons';
 
+const PREPARED_ICONS = {
+    'solidot.org': 'site-icons/solidot.jpeg',
+    'infoq.cn': 'site-icons/infoq.webp',
+    'news.ycombinator.com': 'site-icons/ycombinator.ico',
+};
+
+function preparedIcon(url) {
+    try {
+        const host = new URL(url).hostname.toLowerCase().replace(/^www\./, '');
+        return PREPARED_ICONS[host] || '';
+    } catch {
+        return '';
+    }
+}
+
 function favouriteKey(value) {
     try {
         const url = new URL(value);
@@ -13,6 +28,30 @@ function favouriteKey(value) {
     } catch {
         return '';
     }
+}
+
+function parseFavouriteEntry(line) {
+    const text = line.trim().replace(/^(?:[-*+]|\d+\.)\s+/, '');
+    const markdown = text.match(/^\[([^\]]+)\]\(\s*<?([^\s>)]+)>?(?:\s+["'][^"']*["'])?\s*\)$/);
+    if (markdown) {
+        const name = markdown[1].trim();
+        const url = markdown[2].trim();
+        if (!name || !favouriteKey(url)) {
+            return null;
+        }
+        return { name, url };
+    }
+    if (!favouriteKey(text)) {
+        return null;
+    }
+    return { url: text };
+}
+
+function formatFavourite(item) {
+    if (item.name) {
+        return `[${item.name}](${item.url})`;
+    }
+    return item.url;
 }
 
 function parseFavouriteLines(text, existing) {
@@ -35,7 +74,8 @@ function parseFavouriteLines(text, existing) {
         if (!line) {
             return;
         }
-        const key = favouriteKey(line);
+        const parsedLine = parseFavouriteEntry(line);
+        const key = parsedLine && favouriteKey(parsedLine.url);
         if (!key) {
             errors.push(index + 1);
             return;
@@ -47,7 +87,11 @@ function parseFavouriteLines(text, existing) {
         const previous = existingByUrl.get(key);
         const id = previous ? previous.id : crypto.randomUUID();
         keptIds.add(id);
-        next.push({ id, url: line });
+        const entry = { id, url: parsedLine.url };
+        if (parsedLine.name) {
+            entry.name = parsedLine.name;
+        }
+        next.push(entry);
     });
 
     const removedIds = existing
@@ -113,7 +157,10 @@ async function saveFavouritesFromText(text) {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         parseFavouriteLines,
+        parseFavouriteEntry,
+        formatFavourite,
         favouriteKey,
+        preparedIcon,
         saveFavouritesFromText,
     };
 }

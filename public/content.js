@@ -97,6 +97,16 @@ async function applyIcon(item, img, letter, cachedIcon, generation) {
         showIcon(img, letter, iconUrl);
     };
 
+    const prepared = preparedIcon(item.url);
+    if (prepared) {
+        img.addEventListener('error', async () => {
+            hideIcon(img, letter);
+            await useIcon(await resolveIcon(item.url));
+        }, { once: true });
+        showIcon(img, letter, prepared);
+        return;
+    }
+
     if (cachedIcon) {
         img.addEventListener('error', async () => {
             hideIcon(img, letter);
@@ -145,7 +155,7 @@ async function renderFavourites() {
 
         const description = document.createElement('p');
         description.className = 'description';
-        description.textContent = hostname;
+        description.textContent = item.name || hostname;
 
         const website = document.createElement('p');
         website.className = 'website';
