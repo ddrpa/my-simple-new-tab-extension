@@ -1,6 +1,7 @@
 {
     "manifest_version": 3,
-    "name": "My Simple New Tab Extension",
+    "name": "__MSG_extensionName__",
+    "default_locale": "zh_CN",
     "version": "2.0.0",
     "description": "简洁的新标签页，带每日必应壁纸和常用网站。",
     "icons": {

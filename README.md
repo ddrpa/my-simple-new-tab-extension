@@ -1,4 +1,4 @@
-# My Simple New Tab Extension
+# 素页 (Plain Tab)
 
 ## 怎样安装
 
